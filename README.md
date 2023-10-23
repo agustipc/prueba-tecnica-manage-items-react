@@ -4,11 +4,19 @@ Esto es una prueba tecnica sacada de -> https://gist.github.com/brandovidal/153d
 
 Para realizar la prueba tecnica se ha usado Vite como empaquetador.
 
+Para testing uso Vitest (para correr los tests), HappyDom (para simular el DOM del navegador), React testing library (para testear los componentes) y user-event (para simular la interacción del usuario).
+
 para iniciar el proyecto:
 
 ```
 pnpm install
 pnpm run dev
+```
+
+para testear el proyecto:
+
+```
+pnpm run test
 ```
 
 ---

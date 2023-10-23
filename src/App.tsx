@@ -8,31 +8,31 @@ interface Item {
   timestamp: number
 }
 
-const ITEMS_MOCK: Item[] = [
-  {
-    id: crypto.randomUUID(),
-    text: 'Elemento 1',
-    timestamp: Date.now()
-  },
-  {
-    id: crypto.randomUUID(),
-    text: 'Elemento 2',
-    timestamp: Date.now()
-  },
-  {
-    id: crypto.randomUUID(),
-    text: 'Elemento 3',
-    timestamp: Date.now()
-  },
-  {
-    id: crypto.randomUUID(),
-    text: 'Elemento 4',
-    timestamp: Date.now()
-  }
-]
+// const ITEMS_MOCK: Item[] = [
+//   {
+//     id: crypto.randomUUID(),
+//     text: 'Elemento 1',
+//     timestamp: Date.now()
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     text: 'Elemento 2',
+//     timestamp: Date.now()
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     text: 'Elemento 3',
+//     timestamp: Date.now()
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     text: 'Elemento 4',
+//     timestamp: Date.now()
+//   }
+// ]
 
 function App() {
-  const [items, setItems] = useState(ITEMS_MOCK)
+  const [items, setItems] = useState<Item[]>([])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -64,7 +64,7 @@ function App() {
       <aside>
         <h1>Prueba técnica React</h1>
         <h2>Add items to list</h2>
-        <form action="" onSubmit={handleSubmit}>
+        <form aria-label="Add item to list" onSubmit={handleSubmit}>
           <label htmlFor="">
             Elemento a introducir:
             <input type="text" name="item" required placeholder="Wake up..." />
