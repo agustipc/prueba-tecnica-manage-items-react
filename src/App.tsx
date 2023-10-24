@@ -1,38 +1,16 @@
-import { useState } from 'react'
 import './App.css'
+import { Item } from './components/Item'
+import { useItems } from './hooks/useItems'
 
-type ItemId = `${string}-${string}-${string}-${string}-${string}`
-interface Item {
+export type ItemId = `${string}-${string}-${string}-${string}-${string}`
+export interface Item {
   id: ItemId // format of UUID
   text: string
   timestamp: number
 }
 
-// const ITEMS_MOCK: Item[] = [
-//   {
-//     id: crypto.randomUUID(),
-//     text: 'Elemento 1',
-//     timestamp: Date.now()
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     text: 'Elemento 2',
-//     timestamp: Date.now()
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     text: 'Elemento 3',
-//     timestamp: Date.now()
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     text: 'Elemento 4',
-//     timestamp: Date.now()
-//   }
-// ]
-
 function App() {
-  const [items, setItems] = useState<Item[]>([])
+  const { items, addItem, removeItem } = useItems()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -43,20 +21,13 @@ function App() {
     const isInput = input instanceof HTMLInputElement
     if (!isInput || input === null) return
 
-    const newItem: Item = {
-      id: crypto.randomUUID(),
-      text: input.value,
-      timestamp: Date.now()
-    }
+    addItem(input.value)
 
-    setItems((prevItems) => [...prevItems, newItem])
     input.value = ''
   }
 
   const createHandleRemoveItem = (id: ItemId) => () => {
-    setItems((prevItems) => {
-      return prevItems.filter((currentItem) => currentItem.id !== id)
-    })
+    removeItem(id)
   }
 
   return (
@@ -78,14 +49,15 @@ function App() {
           <p>No items</p>
         ) : (
           <ul>
-            {items.map((item) => (
-              <li key={item.id}>
-                {item.text}
-                <button onClick={createHandleRemoveItem(item.id)}>
-                  Delete
-                </button>
-              </li>
-            ))}
+            {items.map((item) => {
+              return (
+                <Item
+                  handleClick={createHandleRemoveItem(item.id)}
+                  {...item}
+                  key={item.id}
+                />
+              )
+            })}
           </ul>
         )}
       </section>
